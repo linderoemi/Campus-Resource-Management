@@ -1,7 +1,3 @@
 #include<iostream>
-#include "Reservation.hpp"
+#include "Reservation.h"
 using namespace std;
-
-int main(){
-    
-}
