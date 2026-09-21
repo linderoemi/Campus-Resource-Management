@@ -2,22 +2,25 @@
 #define RESOURCE_H_
 
 #include <string>
+
 using namespace std;
 
 class Resource {
-private: 
-        string resourceID;
-        string resourceName;
-        string resourceType;
-        string availabilityStatus;
+private:
+    string resourceID;
+    string resourceName;
+    string resourceType;
+    string availabilityStatus;
+
 public:
     Resource();
+
     Resource(string id, string name, string type, string status);
-    
-    string getresourceID ();
-    string getresourceName ();
-    string getresourceType ();
-    string getavailabilityStatus ();
+
+    string getresourceID();
+    string getresourceName();
+    string getresourceType();
+    string getavailabilityStatus();
 
     void setresourceID(string id);
     void setresourceName(string name);
@@ -25,8 +28,6 @@ public:
     void setavailabilityStatus(string status);
 
     void displayResource() const;
-
-
 };
 
 #endif

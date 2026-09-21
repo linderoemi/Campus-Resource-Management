@@ -1,15 +1,16 @@
 #include "Resource.h"
 #include <iostream>
-
 using namespace std;
 
-Resource::Resource() {
+
+
+Resource::Resource(){
     resourceID = "";
     resourceName = "";
     resourceType = "";
     availabilityStatus = "";
-
 }
+
 
 Resource::Resource(string id, string name, string type, string status){
     resourceID = id;
@@ -18,35 +19,36 @@ Resource::Resource(string id, string name, string type, string status){
     availabilityStatus = status;
 }
 
-string Resource::getresourceID() {
+string Resource::getresourceID(){
     return resourceID;
 }
 
-string Resource::getresourceName()  {
+
+string Resource::getresourceName(){
     return resourceName;
 }
 
-string Resource::getresourceType() {
+string Resource::getresourceType(){
     return resourceType;
 }
 
-string Resource:: getavailabilityStatus() {
+string Resource::getavailabilityStatus(){
     return availabilityStatus;
 }
 
-void Resource:: setresourceID (string id) {
+void Resource::setresourceID(string id){
     resourceID = id;
 }
 
-void Resource:: setresourceName (string name) {
+void Resource::setresourceName(string name){
     resourceName = name;
 }
 
-void Resource:: setresourceType (string type) {
+void Resource::setresourceType(string type){
     resourceType = type;
 }
 
-void Resource:: setavailabilityStatus (string status){
+void Resource::setavailabilityStatus(string status){
     availabilityStatus = status;
 }
 
@@ -56,3 +58,6 @@ void Resource::displayResource() const{
          << resourceType << " | "
          << availabilityStatus << endl;
 }
+
+
+
