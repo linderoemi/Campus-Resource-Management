@@ -1,5 +1,5 @@
-#ifndef Resource_h
-#define Resource_h
+#ifndef RESOURCE_H_
+#define RESOURCE_H_
 
 #include <string>
 using namespace std;
