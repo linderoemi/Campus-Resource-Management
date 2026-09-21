@@ -176,6 +176,9 @@ int main()
 {
     vector<Resource> resources = loadResources("resources.txt");
     ReservationList CampusReservations;
+    WaitingList CampusWaitingList;
+
+    loadReservations("reservations.txt", CampusReservations);
 
     int choice = 0;
 
@@ -229,7 +232,16 @@ int main()
         else if (choice == 4)
         {
             cout << endl;
-            cout << "Waiting List functionality will be added by the reservation team." << endl;
+            string studentID;
+            string name;
+
+            cout << "Enter your Student ID: ";
+            cin >> studentID;
+            cout << "Enter your Name: ";
+            cin >> name;
+
+            CampusWaitingList.addStudent(studentID, name);
+            CampusWaitingList.displayWaitingList();
         }
         else if (choice == 5)
         {
@@ -239,7 +251,7 @@ int main()
         else if (choice == 6)
         {
             cout << endl;
-            cout << "Search Reservations functionality will be added by the reservation team." << endl;
+            CampusReservations.displayReservations();
         }
         else if (choice == 7)
         {
