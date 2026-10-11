@@ -226,6 +226,13 @@ int main()
         }
         else if (choice == 3)
         {
+            string resID;
+
+            cout << "Please enter the Reservation ID you wish to cancel: ";
+            cin >> resID;
+
+            CampusReservations.deleteReservation(resID);
+            
             cout << endl;
             cout << "Canceling Reservations will be added by the reservation team." << endl;
         }

@@ -3,6 +3,7 @@
 
 #include <queue>
 #include <string>
+#include <stack>
 
 using namespace std;
 
@@ -28,6 +29,7 @@ public:
     void addReservation(string id, int student, string name, string resID,
                         string date);
     void displayReservations();
+    void deleteReservation(string reservationID);
 };
 
 struct WaitingRequest{

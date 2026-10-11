@@ -86,6 +86,38 @@ void ReservationList::displayReservations(){
     }
 }
 
+void ReservationList::deleteReservation(string reservationID){
+    if (head == nullptr){
+        cout << "Reservation list is empty." << endl;
+        return;
+    }
+    
+    if (head->reservationID == reservationID){
+        Reservation* temp = head;
+        head = head->next;
+        delete temp;
+        cout << "Reservation deleted successfully." << endl;
+        return;
+    }
+
+    Reservation* current = head;
+    Reservation* previous = nullptr;
+
+    while (current != nullptr && current->reservationID != reservationID){
+        previous = current;
+        current = current->next;
+    }
+
+    if (current == nullptr){
+        cout << "Reservation not found." << endl;
+        return;
+    }
+
+    previous->next = current->next;
+    delete current;
+    cout << "Reservation deleted successfully." << endl;
+}
+
 void loadReservations(string filename, ReservationList& reservations){
     ifstream inputFile(filename);
 
