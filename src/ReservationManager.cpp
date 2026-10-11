@@ -6,12 +6,12 @@
 
 using namespace std;
 
-Reservation::Reservation(int id, string name, string resID){
+Reservation::Reservation(int id, string name, string resID, string date){
     studentID = id;
     studentName = name;
     resourceID = resID;
     reservationID = "";
-    reservationDate = "";
+    reservationDate = date;
     next = nullptr;
 }
 
@@ -29,8 +29,8 @@ ReservationList::ReservationList(){
     head = nullptr;
 }
 
-void ReservationList::addReservation(int id, string name, string resID){
-    Reservation* newReservation = new Reservation(id, name, resID);
+void ReservationList::addReservation(int id, string name, string resourceID, string date){
+    Reservation* newReservation = new Reservation(id, name, resourceID, date);
 
     if (head == nullptr){
         head = newReservation;
@@ -86,13 +86,13 @@ void ReservationList::displayReservations(){
     }
 }
 
-void ReservationList::deleteReservation(string reservationID){
+void ReservationList::deleteReservation(string name){
     if (head == nullptr){
         cout << "Reservation list is empty." << endl;
         return;
     }
     
-    if (head->reservationID == reservationID){
+    if (head->studentName == name){
         Reservation* temp = head;
         head = head->next;
         delete temp;
@@ -103,19 +103,19 @@ void ReservationList::deleteReservation(string reservationID){
     Reservation* current = head;
     Reservation* previous = nullptr;
 
-    while (current != nullptr && current->reservationID != reservationID){
+    while (current!=nullptr && current->studentName!=name){
         previous = current;
         current = current->next;
     }
 
-    if (current == nullptr){
-        cout << "Reservation not found." << endl;
+    if (current==nullptr){
+        cout << "Reservation under that name not found." << endl;
         return;
     }
 
     previous->next = current->next;
     delete current;
-    cout << "Reservation deleted successfully." << endl;
+    cout << "Reservation deleted from active list successfully." << endl;
 }
 
 void loadReservations(string filename, ReservationList& reservations){
