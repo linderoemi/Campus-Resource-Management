@@ -86,7 +86,7 @@ void ReservationList::displayReservations(){
     }
 }
 
-void ReservationList::deleteReservation(string name){
+void ReservationList::cancelReservation(string name){
     if (head == nullptr){
         cout << "Reservation list is empty." << endl;
         return;
@@ -96,7 +96,7 @@ void ReservationList::deleteReservation(string name){
         Reservation* temp = head;
         head = head->next;
         delete temp;
-        cout << "Reservation deleted successfully." << endl;
+        cout << "Reservation cancelled successfully." << endl;
         return;
     }
 
@@ -115,7 +115,7 @@ void ReservationList::deleteReservation(string name){
 
     previous->next = current->next;
     delete current;
-    cout << "Reservation deleted from active list successfully." << endl;
+    cout << "Reservation cancelled successfully." << endl;
 }
 
 void loadReservations(string filename, ReservationList& reservations){

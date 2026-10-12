@@ -28,7 +28,7 @@ public:
     void addReservation(string id, int student, string name, string resID,
                         string date);
     void displayReservations();
-    void deleteReservation(string name);
+    void cancelReservation(string name);
 };
 
 struct WaitingRequest{

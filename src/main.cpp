@@ -232,8 +232,7 @@ int main()
             cout << "Please enter the student name of the reservation you wish to cancel: ";
             getline(cin >> ws, name);
 
-            CampusReservations.deleteReservation(name);
-            CampusReservations.displayReservations();
+            CampusReservations.cancelReservation(name);
 
             cout << endl;
         }
