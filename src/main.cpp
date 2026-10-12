@@ -208,27 +208,36 @@ int main()
             int studentID;
             string name;
             string resID;
+            string date;
 
             cout << endl;
             cout <<"Enter your Student ID: ";
             cin >> studentID;
-            cout << "Enter your Name: " << endl;
-            cin >> name;
-            cout << "Enter the Resource ID you want to reserve: " << endl;
+            cout << "Enter your Name: ";
+            getline (cin >> ws, name);
+            cout << "Enter the Resource ID you want to reserve: ";
             cin >> resID;
+            cout << "Enter the date of your reservation (MM/DD/YYYY): ";
+            cin >> date;
 
-            CampusReservations.addReservation(studentID, name, resID);
-
-            cout << "Reservation created successfully!" << endl;
+            CampusReservations.addReservation(studentID, name, resID, date);
 
 
 
         }
         else if (choice == 3)
         {
+            string name;
+
+            cout << "Please enter the student name of the reservation you wish to cancel: ";
+            getline(cin >> ws, name);
+
+            CampusReservations.deleteReservation(name);
+            CampusReservations.displayReservations();
+
             cout << endl;
-            cout << "Canceling Reservations will be added by the reservation team." << endl;
         }
+
         else if (choice == 4)
         {
             cout << endl;
