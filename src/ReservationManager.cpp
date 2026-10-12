@@ -44,6 +44,8 @@ void ReservationList::addReservation(int id, string name, string resourceID, str
 
         temp->next = newReservation;
     }
+
+    cout << "Reservation added successfully." << endl;
 }
 
 void ReservationList::addReservation(string id, int student, string name,
