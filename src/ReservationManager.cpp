@@ -30,7 +30,17 @@ ReservationList::ReservationList(){
 }
 
 void ReservationList::addReservation(int id, string name, string resourceID, string date){
-    Reservation* newReservation = new Reservation(id, name, resourceID, date);
+    int nextID = 1;
+    Reservation* current = head;
+    while (current != nullptr){
+        int existingID = stoi(current->reservationID);
+        if (existingID >= nextID){
+            nextID = existingID + 1;
+        }
+        current = current->next;
+    }
+    Reservation* newReservation =
+        new Reservation(to_string(nextID), id, name, resourceID, date);
 
     if (head == nullptr){
         head = newReservation;
@@ -144,13 +154,23 @@ void loadReservations(string filename, ReservationList& reservations){
         getline(ss, resourceID, '|');
         getline(ss, reservationDate);
 
-        reservations.addReservation(
-            reservationID,
-            stoi(studentID),
-            studentName,
-            resourceID,
-            reservationDate
-        );
+        try{
+            size_t studentEnd;
+            size_t reservationEnd;
+            int student = stoi(studentID, &studentEnd);
+            int id = stoi(reservationID, &reservationEnd);
+            if (studentEnd != studentID.size() || reservationEnd != reservationID.size()
+                || student <= 0 || id <= 0 || studentName.empty()
+                || resourceID.empty() || reservationDate.empty()){
+                cout << "Skipping invalid reservation record." << endl;
+                continue;
+            }
+            reservations.addReservation(reservationID, student, studentName,
+                                        resourceID, reservationDate);
+        }
+        catch (const exception&){
+            cout << "Skipping invalid reservation record." << endl;
+        }
     }
 
     inputFile.close();
@@ -161,13 +181,14 @@ WaitingRequest::WaitingRequest(){
     studentName = "";
 }
 
-WaitingRequest::WaitingRequest(string id, string name){
+WaitingRequest::WaitingRequest(string id, string name, string resID){
+    resourceID = resID;
     studentID = id;
     studentName = name;
 }
 
-void WaitingList::addStudent(string studentID, string studentName){
-    WaitingRequest request(studentID, studentName);
+void WaitingList::addStudent(string studentID, string studentName, string resourceID){
+    WaitingRequest request(studentID, studentName, resourceID);
     waitingQueue.push(request);
 }
 
@@ -198,7 +219,7 @@ void WaitingList::displayWaitingList(){
              << student.studentName
              << " ("
              << student.studentID
-             << ")"
+             << ") | " << student.resourceID
              << endl;
 
         remainingRequests.pop();
@@ -208,4 +229,57 @@ void WaitingList::displayWaitingList(){
 
 bool WaitingList::isEmpty(){
     return waitingQueue.empty();
+}
+
+//linear search
+void ReservationList::searchReservations(int studentID){
+    Reservation* current = head;
+    bool found = false;
+    while (current != nullptr){
+        if (current->studentID == studentID){
+            cout << current->reservationID << " | " << current->studentID
+                 << " | " << current->studentName << " | " << current->resourceID
+                 << " | " << current->reservationDate << endl;
+            found = true;
+        }
+        current = current->next;
+    }
+    if (!found){
+        cout << "No reservations found for that student." << endl;
+    }
+}
+
+int ReservationList::countReservations(string resourceID){
+    int count = 0;
+    Reservation* current = head;
+    while (current != nullptr){
+        if (current->resourceID == resourceID){
+            count++;
+        }
+        current = current->next;
+    }
+    return count;
+}
+
+bool ReservationList::isReserved(string resourceID, string date){
+    Reservation* current = head;
+    while (current != nullptr){
+        if (current->resourceID == resourceID && current->reservationDate == date){
+            return true;
+        }
+        current = current->next;
+    }
+    return false;
+}
+
+int WaitingList::countWaiting(string resourceID){
+    queue<WaitingRequest> remainingRequests = waitingQueue;
+    int count = 0;
+    while (!remainingRequests.empty()){
+        if (remainingRequests.front().resourceID == resourceID){
+            count++;
+        }
+        remainingRequests.pop();
+    }
+    return count;
 }
